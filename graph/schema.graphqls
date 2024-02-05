@@ -1,0 +1,51 @@
+type Halte {
+  id: ID!
+  halte_id: String!
+  name: String!
+}
+
+type Corridor {
+  id: ID!
+  corridor_id: String!
+  name: String!
+  from: Halte!
+  to: Halte!
+}
+
+type Subway {
+  id: ID!
+  subway_id: String!
+  name: String!
+  corridor: Corridor!
+}
+
+input NewHalte {
+  name: String!
+}
+
+input NewCorridor {
+  name: String!
+  from_halte_id: String!
+  to_halte_id: String!
+}
+
+input NewSubway {
+  name: String!
+  corridor_id: String!
+}
+
+
+type Mutation {
+  createHalte(input: NewHalte): Halte!
+  createCorridor(input: NewCorridor): Corridor!
+  createSubway(input: NewSubway): Subway!
+}
+
+type Query {
+  halte: [Halte!]
+  corridor: [Corridor!]
+  subway: [Subway!]
+  findHalteByID(id: String!): Halte
+  findCorridorByID(id: String!): Corridor
+  findSubwayByID(id: String!): Subway
+}
